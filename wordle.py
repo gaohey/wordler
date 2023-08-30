@@ -28,10 +28,13 @@ def genScore( guess, answer ):
 
     for i in range(5):
         if i not in score.keys():
-            if guess[i] in reduced_answer:
-                score[i] = "1"
-            else:
+            position = reduced_answer.find( guess[i] )
+
+            if position == -1:
                 score[i] = "0"
+            else:
+                score[i] = "1"
+                reduced_answer = reduced_answer[:position]+"_"+reduced_answer[ position+1:]
 
     
     #         # else:
@@ -146,7 +149,18 @@ class Wordle():
         if len ( self.guess ) == 0:
             return self.hint 
         else:
-            self.hint = bestSolver(self.allWords, self.choiceSpace  )
+            self.hint = bestSolver( self.allWords, self.choiceSpace  )
+
+        return self.hint 
+    
+    def genHintOptimal( self ):
+        if len ( self.guess ) == 0:
+            return self.hint 
+        
+        elif sum( [int(i) for i in self.scores[-1] ]) >=6 :
+            self.hint = bestSolver( self.allWords, self.choiceSpace  )
+        else:
+            self.hint = genBestGuess( self.choiceSpace  )
 
         return self.hint 
     

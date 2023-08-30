@@ -140,7 +140,13 @@ def newSession( message ):
         return 
     
     WordleSession.guess = WordleSession.guess[:-1]
-    WordleSession.score = WordleSession.scores[:-1]
+    WordleSession.scores = WordleSession.scores[:-1]
+
+    WordleSession.choiceSpace = WordleSession.allWords
+
+    for guess, score in zip( WordleSession.guess, WordleSession.scores ):
+        WordleSession.updateChoices( guess, score )
+    
 
     reply = genStatus( message )
     # print( user[ "user_{0}".format ( message.chat.id )].answer )
