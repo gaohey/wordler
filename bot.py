@@ -7,7 +7,7 @@ from wordle import Wordle
 # import telegram
 load_dotenv()
  
-import re
+# import re
 
 
 import pandas as pd 

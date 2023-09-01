@@ -72,14 +72,17 @@ def genGuessImpact( guess, wdList ):
 
 def genBestGuess( wordList ):
     
-    eachGuessImpact = wordList.words.apply( lambda x: genGuessImpact( x, wordList ) )
+    # eachGuessImpact = wordList.words.apply( lambda x: genGuessImpact( x, wordList ) )
     
-    bestGuess = wordList.loc[ eachGuessImpact == eachGuessImpact.min() ,'words' ].values[0]
+    bestGuess = bestSolver(wordList, wordList) # wordList.loc[ eachGuessImpact == eachGuessImpact.min() ,'words' ].values[0]
     
     return bestGuess
 
 def bestSolver( choiceSpace, answerSpace ):
     
+    if len( answerSpace ) == 1:
+        return answerSpace.words.values[0]
+
     eachGuessImpact = choiceSpace.words.apply( lambda x: genGuessImpact( x, answerSpace ) )
     
     bestGuess = choiceSpace.loc[ eachGuessImpact == eachGuessImpact.min() ,'words' ].values[0]
@@ -156,7 +159,7 @@ class Wordle():
     def genHintOptimal( self ):
         if len ( self.guess ) == 0:
             return self.hint 
-        
+
         elif sum( [int(i) for i in self.scores[-1] ]) >=6 :
             self.hint = bestSolver( self.allWords, self.choiceSpace  )
         else:
