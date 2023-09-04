@@ -35,6 +35,8 @@ solverMode = False
 
 # WordleSession = Wordle() 
 bot = telebot.TeleBot(API_KEY)
+bot.delete_webhook()
+
 
 
 
@@ -79,7 +81,7 @@ def notFiveLetter( message ):
     if len( WordleSession.guess ) > len( WordleSession.scores ):
         return False
     
-    if len( WordleSession.choiceSpace ) ==1 :
+    if ( WordleSession.mode == SOLVER_MODE ) and ( len( WordleSession.choiceSpace ) ==1 ) :
         return False
 
     if "/" in message.text:
@@ -128,7 +130,7 @@ def newSession( message ):
 
 
 @bot.message_handler( commands = ['rollback'])
-def newSession( message ):
+def rollback( message ):
 
     if not userChecker( message ):
         return 
@@ -355,5 +357,6 @@ def solverStart( message ):
 # def send_price(message):
 #     bot.send_message( message.chat.id, "odd number" )
 
-
-bot.polling()
+if __name__ == "__main__":
+    # app.run( )
+    bot.polling()
