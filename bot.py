@@ -257,16 +257,16 @@ def updateScore(message):
 
     WordleSession.updateChoices( WordleSession.guess[-1], score )
 
-    hint = WordleSession.genHint()
+    hint = WordleSession.genHint().upper()
 
     if len( WordleSession.choiceSpace ) == 1:
-        bot.send_message( message.chat.id, "Answer is: {0}".format(  hint.upper()) , parse_mode= "Markdown")
+        bot.send_message( message.chat.id, "Answer is: *{0}*".format(  hint.upper()) , parse_mode= "Markdown")
         bot.send_message( message.chat.id, "Use /rollback to rollback a guess, if you think you made a typo" )
         bot.send_message( message.chat.id, ""+ genStatus( message ) )
         return 
 
-    bot.send_message( message.chat.id, "try: {0}".format ( hint.upper()) )
-    bot.send_message( message.chat.id, "Please provide the score for {0} or enter the word you actually tried: ".format( hint ), parse_mode= "Markdown" )
+    bot.send_message( message.chat.id, "try: *{0}*".format ( hint.upper()) )
+    bot.send_message( message.chat.id, "Please provide the score for *{0}* or enter the word you actually tried: ".format( hint ), parse_mode= "Markdown" )
 
 def isNOTValidScore( message ):
 
@@ -316,9 +316,9 @@ def getHint( message ):
 
     WordleSession = user[ "user_{0}".format ( message.chat.id )]
 
-    currentHint = WordleSession.genHint()
+    currentHint = WordleSession.genHint().upper()
 
-    bot.send_message( message.chat.id, "try: " + currentHint )
+    bot.send_message( message.chat.id, "try: *{0}*".format( currentHint), parse_mode= "Markdown" )
 
 
 @bot.message_handler( commands = ['solver'])
