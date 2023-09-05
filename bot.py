@@ -172,10 +172,10 @@ def getGuess(message):
 
         if len( WordleSession.choiceSpace ) ==1:
 
-            bot.send_message( message.chat.id, "Use /rollback if **{0}** was not ur answer, or /solver or /wordle for a new session".format( WordleSession.hint.upper() )  )
+            bot.send_message( message.chat.id, "Use /rollback if *{0}* was not ur answer, or /solver or /wordle for a new session".format( WordleSession.hint.upper() ), parse_mode= "Markdown"  )
             return 
 
-        bot.send_message( message.chat.id, "Please provide the score from Wordle for **{0}**: ".format( guess.upper(), parse_mode= "Markdown" ) )
+        bot.send_message( message.chat.id, "Please provide the score from Wordle for *{0}*: ".format( guess.upper(), parse_mode= "Markdown" ) )
 
     else: 
 
@@ -233,7 +233,7 @@ def updateScore(message):
 
     if len( WordleSession.choiceSpace ) ==1:
 
-        bot.send_message( message.chat.id, "Use /rollback if **{0}** was not ur answer, or /solver or /wordle for a new session".format( WordleSession.hint.upper() )  )
+        bot.send_message( message.chat.id, "Use /rollback if *{0}* was not ur answer, or /solver or /wordle for a new session".format( WordleSession.hint.upper() ) , parse_mode= "Markdown" )
         return 
     
     
@@ -260,13 +260,13 @@ def updateScore(message):
     hint = WordleSession.genHint()
 
     if len( WordleSession.choiceSpace ) == 1:
-        bot.send_message( message.chat.id, "Answer is: " + hint )
+        bot.send_message( message.chat.id, "Answer is: {0}".format(  hint.upper()) , parse_mode= "Markdown")
         bot.send_message( message.chat.id, "Use /rollback to rollback a guess, if you think you made a typo" )
         bot.send_message( message.chat.id, ""+ genStatus( message ) )
         return 
 
-    bot.send_message( message.chat.id, "try: " + hint )
-    bot.send_message( message.chat.id, "Please provide the score for {0} or enter the word you actually tried: ".format( hint ) )
+    bot.send_message( message.chat.id, "try: {0}".format ( hint.upper()) )
+    bot.send_message( message.chat.id, "Please provide the score for {0} or enter the word you actually tried: ".format( hint ), parse_mode= "Markdown" )
 
 def isNOTValidScore( message ):
 
