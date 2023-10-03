@@ -24,14 +24,6 @@ API_KEY = os.getenv('API_KEY')
 print(API_KEY, os.getcwd() )
 
 
-user = {}
-SOLVER_MODE = "SOLVER"
-WORDLE_MODE = "WORDLE"
-
-
-
-isSessionStarted = False 
-solverMode = False 
 
 # WordleSession = Wordle() 
 bot = telebot.TeleBot(API_KEY)

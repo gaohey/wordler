@@ -160,7 +160,7 @@ class Wordle():
         if len ( self.guess ) == 0:
             return self.hint 
 
-        elif sum( [int(i) for i in self.scores[-1] ]) >=6 :
+        elif sum( [int(i) for i in self.scores[-1] ]) >=5 :
             self.hint = bestSolver( self.allWords, self.choiceSpace  )
         else:
             self.hint = genBestGuess( self.choiceSpace  )
